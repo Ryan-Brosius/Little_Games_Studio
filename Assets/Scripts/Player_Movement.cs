@@ -10,7 +10,6 @@ public class Player_Movement : MonoBehaviour
     // TO DO:
     // Toggle jump - Current item to do. Kirill: I think i did it. Not sure if you had the same in mind. Feel free to change it, but do tell me why so i can learn.
     // Toggle sprint
-    // 
 {   
     //Yo, Kirill is here, I am just kind of looking around and learning. Heads up, I left some questions if you gor time you can answear them, Its fine if you don't
     //P.S I tested the movement a little and I think if we want to keep the jumping you might wanna add some more gravity to the plyer after the jump. rn it feels like jumping on the moon.
@@ -27,7 +26,7 @@ public class Player_Movement : MonoBehaviour
     bool isGrounded;
     //Kirill: I see you created this float but haven't used it yet. Do you have something in mind for it later or you just ended up not needing it? 
     public float playerForce;
-    //Kirill: made a public variable for jumping force so we can adjust it as needed in unity editor.
+    //Kirill: made a public variable for jumping force so we can adjust it as ne meded in unity editor.
     public float jumpForce;
     //Kirill: made that public boolean so we can toggle jumping in unity editor
     public bool jumpActive = false;
