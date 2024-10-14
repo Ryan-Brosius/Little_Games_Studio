@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private float walkSpeed = 5f;
     [SerializeField]
     private float runSpeed = 10f;
+    [SerializeField]
+    private float acceleration = 90f;
+    private float targetSpeed;
     private float currentSpeed;
     private Vector3 moveDirection = Vector3.zero;
 
@@ -60,7 +63,8 @@ public class PlayerController : MonoBehaviour
 
         yRotation = Mathf.Clamp(yRotation, -80.0f, 80.0f);
 
-        transform.localRotation = Quaternion.Euler(yRotation, xRotation, 0.0f);
+        transform.localRotation = Quaternion.Euler(0.0f, xRotation, 0.0f);
+        cam.transform.localRotation = Quaternion.Euler(yRotation, 0.0f, 0.0f);
     }
 
     void updateMovement()
@@ -72,8 +76,18 @@ public class PlayerController : MonoBehaviour
 
         Vector3 desiredDirection = (transform.forward * vertical + transform.right * horizontal).normalized;
 
-        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
-        isRunning = currentSpeed == runSpeed;
+        targetSpeed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+
+        if (desiredDirection.magnitude > 0)
+        {
+            currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, acceleration * Time.deltaTime);
+        }
+        else
+        {
+            currentSpeed = 0;
+        }
+
+        isRunning = currentSpeed > walkSpeed;
 
         moveDirection.x = desiredDirection.x * currentSpeed;
         moveDirection.z = desiredDirection.z * currentSpeed;
