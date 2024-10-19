@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
     [Header("Gravity Settings")]
     [SerializeField]
     private float gravity = 35f;
+    private float previousY;
 
     [Header("Status Flags")]
     public bool isMoving, isRunning, isGrounded;
@@ -47,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        previousY = transform.position.y;
     }
 
     // Update is called once per frame
@@ -101,6 +104,13 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection.y = Mathf.Sqrt(jumpHeight * 2f * gravity);
         }
+
+        // Checks to see if players head has hit the ceiling as they jumped
+        if (!isGrounded && previousY == transform.position.y)
+        {
+            moveDirection.y = 0.0f;
+        }
+        previousY = transform.position.y;
 
         moveDirection.y -= gravity * Time.deltaTime;
         cc.Move(moveDirection * Time.deltaTime);

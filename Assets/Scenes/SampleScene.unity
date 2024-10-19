@@ -7566,7 +7566,7 @@ Transform:
   m_GameObject: {fileID: 471254838}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -88.01, y: 0.77, z: -34.7}
+  m_LocalPosition: {x: -88.537, y: 0.77, z: -34.324}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23113,7 +23113,7 @@ Transform:
   m_GameObject: {fileID: 930415476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.45, y: 2, z: -30}
+  m_LocalPosition: {x: -90.59, y: 2, z: -31.917}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23142,7 +23142,7 @@ CharacterController:
   m_Height: 2
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.4
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -23163,11 +23163,11 @@ MonoBehaviour:
   sensitivity: 250
   xSenMultiplier: 3
   ySenMultiplier: 3
-  walkSpeed: 15
-  runSpeed: 30
-  acceleration: 90
+  walkSpeed: 5
+  runSpeed: 7.5
+  acceleration: 30
   canJump: 1
-  jumpHeight: 4
+  jumpHeight: 2
   gravity: 50
   isMoving: 0
   isRunning: 0
@@ -26709,7 +26709,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.009999998, y: 0.01, z: 0.0047028945}
