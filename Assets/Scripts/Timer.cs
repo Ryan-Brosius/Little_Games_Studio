@@ -15,23 +15,21 @@ public class Timer : MonoBehaviour
         {
             remainingTime -= Time.deltaTime;
 
-            remainingTime -= Time.deltaTime;
             int minutes = Mathf.FloorToInt(remainingTime / 60);
             int seconds = Mathf.FloorToInt(remainingTime % 60);
-            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            int milliseconds = Mathf.FloorToInt((remainingTime * 100) % 100);
+            timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
 
+            if (remainingTime <= 6)
+            {
+                timerText.color = Color.red;
+            }
         }
-        //I don't know why it doesn't work I wonted to make the text turn red at last 5 seconds of the timer. 
-        else if(remainingTime > 0 && remainingTime < 6)
-        {
-            timerText.color = Color.red;
-        }
-        
         else
         {
             remainingTime = 0;
             timerText.color = Color.red;
-            timerText.text = "00:00";
+            timerText.text = "00:00:00";
         }
         
         
