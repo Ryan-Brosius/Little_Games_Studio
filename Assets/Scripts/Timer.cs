@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    public GameOverScreen GameOverScreen;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] float remainingTime;
 
@@ -30,8 +32,16 @@ public class Timer : MonoBehaviour
             remainingTime = 0;
             timerText.color = Color.red;
             timerText.text = "00:00:00";
+            GameOver();
+
         }
         
         
+        void GameOver()
+        {
+            GameOverScreen.Setup();
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }

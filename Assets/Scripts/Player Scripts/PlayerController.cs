@@ -106,10 +106,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // Checks to see if players head has hit the ceiling as they jumped
-        if (!isGrounded && previousY == transform.position.y)
-        {
-            moveDirection.y = 0.0f;
-        }
+        //if (!isGrounded && previousY == transform.position.y)
+        //{
+            //moveDirection.y = 0.0f;
+        //}
         previousY = transform.position.y;
 
         moveDirection.y -= gravity * Time.deltaTime;
