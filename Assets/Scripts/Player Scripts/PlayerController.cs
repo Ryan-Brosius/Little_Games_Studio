@@ -46,9 +46,6 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
         cc.enabled = true;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         previousY = transform.position.y;
     }
 
