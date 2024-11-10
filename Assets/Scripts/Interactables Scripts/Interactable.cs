@@ -31,7 +31,7 @@ public class Interactable : MonoBehaviour
                 {
                     effect.ExecuteEffect(gameObject, this);
                 }
-                isInteractable = false;
+                //isInteractable = false;
             }
         }
     }

@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
     //Singleton lol
     public static InventoryManager Instance { get; private set; }
     private Dictionary<string, int> items = new Dictionary<string, int>();
-    public event Action OnInventoryUpdated;
+    public event Action<String> OnInventoryUpdated;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour
         {
             items[item] = quantity;
         }
-        NotifyInventoryUpdated();
+        NotifyInventoryUpdated(item);
     }
 
     public bool RemoveItem(string item, int quantity = 1)
@@ -50,7 +50,7 @@ public class InventoryManager : MonoBehaviour
                     items.Remove(item);
                 }
 
-                NotifyInventoryUpdated();
+                NotifyInventoryUpdated(item);
                 return true;
             }
             else
@@ -78,9 +78,9 @@ public class InventoryManager : MonoBehaviour
         return items.ContainsKey(item) ? items[item] : 0;
     }
 
-    private void NotifyInventoryUpdated()
+    private void NotifyInventoryUpdated(string item)
     {
-        OnInventoryUpdated?.Invoke();
+        OnInventoryUpdated?.Invoke(item);
     }
 }
 
