@@ -7,23 +7,16 @@ public class GameScript : MonoBehaviour
     [Header("Monitor Main Menu Settings")]
     [SerializeField] public Canvas gameHud;
     [SerializeField] public Canvas monitorMenu;
-    [SerializeField] public GameObject playerCamera;
+    [SerializeField] public Camera playerCamera;
     [SerializeField] public Camera monitorCamera;
-    [SerializeField] public float fovSpeed = 0.1f;
-    [SerializeField] public float oldFov;
-    [SerializeField] public float newFov;
-    private float playerFov;
+    [SerializeField] public float transitionTime = 2f;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
-        monitorCamera.fieldOfView = oldFov;
-
         gameStartingScreen();
-
-
     }
 
     public void gameStartingScreen()
@@ -31,34 +24,44 @@ public class GameScript : MonoBehaviour
         Time.timeScale = 0;
 
         gameHud.enabled = false;
-
         monitorMenu.enabled = true;
 
-        playerCamera.SetActive(false);
-
+        playerCamera.gameObject.SetActive(false);
         monitorCamera.gameObject.SetActive(true);
     }
 
     public void startGame()
     {
-
         Cursor.lockState = CursorLockMode.Locked;
-
         Cursor.visible = false;
 
-        StartCoroutine(changeFov());
-
+        StartCoroutine(MoveCameraCoroutine());
     }
 
-    IEnumerator changeFov()
+    IEnumerator MoveCameraCoroutine()
     {
-        while (Mathf.Abs(monitorCamera.fieldOfView - newFov) > 0.01f)
+        float elapsedTime = 0f;
+        Vector3 startPosition = monitorCamera.transform.position;
+        Quaternion startRotation = monitorCamera.transform.rotation;
+        Vector3 endPosition = playerCamera.transform.position;
+        Quaternion endRotation = playerCamera.transform.rotation;
+
+        playerCamera.gameObject.SetActive(false);
+
+        while (elapsedTime < transitionTime)
         {
-            monitorCamera.fieldOfView = Mathf.MoveTowards(monitorCamera.fieldOfView, newFov, fovSpeed);
+            float t = elapsedTime / transitionTime;
+            t = 1f - Mathf.Pow(1f - t, 3f);
+
+            monitorCamera.transform.position = Vector3.Lerp(startPosition, endPosition, t);
+            monitorCamera.transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+
+            elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
 
-        yield return new WaitForSecondsRealtime(1);
+        monitorCamera.transform.position = endPosition;
+        monitorCamera.transform.rotation = endRotation;
 
         enableGameHud();
     }
@@ -68,11 +71,9 @@ public class GameScript : MonoBehaviour
         Time.timeScale = 1;
 
         gameHud.enabled = true;
-
         monitorMenu.enabled = false;
 
-        playerCamera.SetActive(true);
-
+        playerCamera.gameObject.SetActive(true);
         monitorCamera.gameObject.SetActive(false);
     }
 }

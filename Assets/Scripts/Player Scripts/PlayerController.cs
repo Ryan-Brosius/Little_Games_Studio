@@ -46,6 +46,9 @@ public class PlayerController : MonoBehaviour
         cc = GetComponent<CharacterController>();
         cc.enabled = true;
 
+        xRotation = transform.rotation.eulerAngles.y;
+        yRotation = transform.rotation.eulerAngles.x;
+
         previousY = transform.position.y;
     }
 
