@@ -5,6 +5,7 @@ public class ItemDropInteractable : MonoBehaviour, IInteractionEffect
     [Header("Furniture Drop Settings")]
     [SerializeField] public GameObject drop;
     [SerializeField] public int dropAmount = 1;
+    [SerializeField] private Vector3 offset = new Vector3(0f, 0f, 0f);
 
     [Header("Randomness Settings")]
     [SerializeField] public Vector3 positionRandomness = new Vector3(0.5f, 0.5f, 0.5f);
@@ -28,7 +29,7 @@ public class ItemDropInteractable : MonoBehaviour, IInteractionEffect
                 Random.Range(-rotationRandomness.z, rotationRandomness.z)
             );
 
-            Instantiate(drop, spawnPosition, randomRotation);
+            Instantiate(drop, spawnPosition + offset, randomRotation);
         }
     }
 }

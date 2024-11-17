@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 2508407717270153081}
   - component: {fileID: 4523272602117006268}
   - component: {fileID: 4261401009132641411}
+  - component: {fileID: 2227155091838180082}
+  - component: {fileID: 1728980507996275084}
   m_Layer: 6
   m_Name: Shelf
   m_TagString: Untagged
@@ -173,6 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drop: {fileID: 4659623888137417240, guid: 68319519bf37c554cb5b10b42f676bd9, type: 3}
   dropAmount: 3
+  offset: {x: 0, y: 1.8, z: 0}
   positionRandomness: {x: 0.5, y: 0.5, z: 0.5}
   rotationRandomness: {x: 15, y: 15, z: 15}
 --- !u!114 &4261401009132641411
@@ -187,3 +190,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba281e5fd0550e4fb38deb773e06568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2227155091838180082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989880628327372932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea0410422752e54ebb84f3956019f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 5269870335126822285, guid: 78ebcd688d9c51343a705511ebbee388, type: 3}
+  offset: {x: 0, y: 1.8, z: 0}
+--- !u!114 &1728980507996275084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989880628327372932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea0410422752e54ebb84f3956019f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 6118450337708280802, guid: 914d5ec4e4f4d844bb0a25fa5dd73f3f, type: 3}
+  offset: {x: 0, y: 1.8, z: 0}
