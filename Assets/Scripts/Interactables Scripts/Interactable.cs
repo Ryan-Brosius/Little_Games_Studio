@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
     public bool isInteractable = true;
     private List<IInteractionEffect> interactionEffects;
     private List<IConditionalCheck> conditionalChecks;
+    [SerializeField] private bool disableOnUse = true;
 
     private void Start()
     {
@@ -31,7 +32,11 @@ public class Interactable : MonoBehaviour
                 {
                     effect.ExecuteEffect(gameObject, this);
                 }
-                //isInteractable = false;
+
+                if (disableOnUse)
+                {
+                    isInteractable = false;
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
 {
     public GameOverScreen GameOverScreen;
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] float remainingTime;
+    [SerializeField] public float remainingTime;
 
     // Update is called once per frame
     void Update()
