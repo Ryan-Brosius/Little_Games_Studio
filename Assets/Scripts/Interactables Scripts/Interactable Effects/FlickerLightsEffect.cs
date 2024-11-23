@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class FlickerLightsEffect : MonoBehaviour, IInteractionEffect
 {
-    [SerializeField] private List<Light> lights; // List of lights to flicker
-    [SerializeField] private float flickerDelayMin = 0.05f; // Minimum delay between flickers
-    [SerializeField] private float flickerDelayMax = 0.2f; // Maximum delay between flickers
-    [SerializeField] private float lowIntensity = 0.2f; // Intensity for "flickering off"
-    [SerializeField] private float highIntensity = 1f; // Full light intensity
-    [SerializeField] private float flickerDuration = 5f; // Duration of the flickering effect
+    [SerializeField] private List<Light> lights;
+    [SerializeField] private float flickerDelayOnMin = .9f;
+    [SerializeField] private float flickerDelayOnMax = 1.3f;
+    [SerializeField] private float flickerDelayOffMin = 0.05f;
+    [SerializeField] private float flickerDelayOffMax = 0.2f;
+    [SerializeField] private float lowIntensity = 0.2f;
+    [SerializeField] private float highIntensity = 1f;
+    [SerializeField] private float flickerDuration = 5f;
 
     private List<Coroutine> flickerCoroutines = new List<Coroutine>();
 
@@ -31,9 +33,13 @@ public class FlickerLightsEffect : MonoBehaviour, IInteractionEffect
     {
         while (true)
         {
-            light.intensity = Random.value > 0.5f ? highIntensity : lowIntensity;
+            light.intensity = highIntensity;
 
-            yield return new WaitForSeconds(Random.Range(flickerDelayMin, flickerDelayMax));
+            yield return new WaitForSeconds(Random.Range(flickerDelayOnMin, flickerDelayOnMax));
+
+            light.intensity = lowIntensity;
+
+            yield return new WaitForSeconds(Random.Range(flickerDelayOffMin, flickerDelayOffMax));
         }
     }
 

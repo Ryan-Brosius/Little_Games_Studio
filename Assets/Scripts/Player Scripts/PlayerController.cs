@@ -40,6 +40,12 @@ public class PlayerController : MonoBehaviour
     [Header("Status Flags")]
     public bool isMoving, isRunning, isGrounded;
 
+    [Header("Audio Settings")]
+    [SerializeField] private string[] footstepClips;
+    [SerializeField]
+    private float footstepInterval = 0.5f;
+    private float footstepTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +56,8 @@ public class PlayerController : MonoBehaviour
         yRotation = transform.rotation.eulerAngles.x;
 
         previousY = transform.position.y;
+
+        footstepTimer = footstepInterval;
     }
 
     // Update is called once per frame
@@ -57,6 +65,7 @@ public class PlayerController : MonoBehaviour
     {
         updateCameraMovement();
         updateMovement();
+        UpdateFootsteps();
     }
 
     void updateCameraMovement()
@@ -116,4 +125,50 @@ public class PlayerController : MonoBehaviour
         cc.Move(moveDirection * Time.deltaTime);
         isMoving = cc.velocity.sqrMagnitude > 0.0f ? true : false;
     }
+
+    void UpdateFootsteps()
+    {
+        if (isMoving && isGrounded)
+        {
+            footstepTimer -= isRunning ? Time.deltaTime * 1.8f : Time.deltaTime;
+            if (footstepTimer <= 0f)
+            {
+                PlayFootstepSound();
+                footstepTimer = footstepInterval;
+            }
+        }
+    }
+
+    void PlayFootstepSound()
+    {
+        if (footstepClips.Length > 0)
+        {
+            if (GetCurrentSurface() == SurfaceType.Surface.Grass)
+            {
+                int index = Random.Range(3, footstepClips.Length);
+                AudioManager.Instance.getSound(footstepClips[index]).source.pitch = 1.4f + Random.Range(-0.1f, 0.1f);
+                AudioManager.Instance.Play(footstepClips[index]);
+            } else
+            {
+                int index = Random.Range(0, 3);
+                AudioManager.Instance.getSound(footstepClips[index]).source.pitch = 1f + Random.Range(-0.2f, 0.2f);
+                AudioManager.Instance.Play(footstepClips[index]);
+            }
+        }
+    }
+
+    SurfaceType.Surface GetCurrentSurface()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, cc.height / 2 + 0.1f))
+        {
+            SurfaceType surfaceType = hit.collider.GetComponent<SurfaceType>();
+            if (surfaceType != null)
+            {
+                return surfaceType.surfaceType;
+            }
+        }
+        return SurfaceType.Surface.Default;
+    }
+
 }
