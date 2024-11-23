@@ -14413,19 +14413,19 @@ MonoBehaviour:
   sounds:
   - name: Step1
     clip: {fileID: 8300000, guid: 75ed0ed461f4a6b4caf24830d7e095cf, type: 3}
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Step2
     clip: {fileID: 8300000, guid: 72807d866f5ec7642b2b42ab09cd411b, type: 3}
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Step3
     clip: {fileID: 8300000, guid: 42bb206071eba7e489e3a95d48d34a36, type: 3}
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -14437,13 +14437,13 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Step5
     clip: {fileID: 8300000, guid: 335f668f557431f4bbe881a35ae80091, type: 3}
-    volume: 0.05
+    volume: 0.15
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Step6
     clip: {fileID: 8300000, guid: 2639d9b3c1921f64389b979323701f45, type: 3}
-    volume: 0.05
+    volume: 0.15
     pitch: 1
     loop: 0
     source: {fileID: 0}
