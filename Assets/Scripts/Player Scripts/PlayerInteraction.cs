@@ -61,6 +61,7 @@ public class PlayerInteraction : MonoBehaviour
             if (currentInteractable != null)
             {
                 currentInteractable.Interact();
+                currentInteractable.OnHoverExit();
                 currentInteractable = null;
             }
         }

@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private List<Light> sceneLights;
 
+    //bunch of bools to keep track of state
+    private bool sentOutFirstMessage = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -31,6 +34,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         remainingTime = timer.remainingTime;
+        
+        if (!sentOutFirstMessage && (totalTime - remainingTime) > 1.5f)
+        {
+            MessageSystem.Instance.queueMessage("I think I should arm the security system...");
+            sentOutFirstMessage = true;
+        }
     }
 
     public void recieveMessage(int message)
