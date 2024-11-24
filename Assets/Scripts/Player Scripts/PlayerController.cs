@@ -42,9 +42,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio Settings")]
     [SerializeField] private string[] footstepClips;
-    [SerializeField]
-    private float footstepInterval = 0.5f;
+    [SerializeField] private float footstepInterval = 0.5f;
     private float footstepTimer;
+
+    [SerializeField] private string[] breathingClips;
+    [SerializeField] private float maxBreathingInterval = 6f;
+    [SerializeField] private float minBreathingInterval = 1.5f;
+    private float breathingTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +62,7 @@ public class PlayerController : MonoBehaviour
         previousY = transform.position.y;
 
         footstepTimer = footstepInterval;
+        breathingTimer = maxBreathingInterval;
     }
 
     // Update is called once per frame
@@ -66,6 +71,7 @@ public class PlayerController : MonoBehaviour
         updateCameraMovement();
         updateMovement();
         UpdateFootsteps();
+        UpdateBreathing();
     }
 
     void updateCameraMovement()
@@ -169,6 +175,29 @@ public class PlayerController : MonoBehaviour
             }
         }
         return SurfaceType.Surface.Default;
+    }
+
+    public void UpdateBreathing()
+    {
+        breathingTimer -= isRunning ? Time.deltaTime * 1.8f : Time.deltaTime;
+        if (breathingTimer <= 0f)
+        {
+            PlayBreathingSound();
+            breathingTimer = Mathf.Lerp(minBreathingInterval, maxBreathingInterval, GameManager.Instance.remainingTime / GameManager.Instance.totalTime);
+        }
+    }
+
+    public void PlayBreathingSound()
+    {
+        if (breathingClips.Length > 0)
+        {
+            int index = Random.Range(0, breathingClips.Length);
+            AudioManager.Instance.getSound(breathingClips[index]).source.pitch = 1.0f + Random.Range(-0.1f, 0.1f);
+
+            AudioManager.Sound sound = AudioManager.Instance.getSound(breathingClips[index]);
+            sound.source.volume = Mathf.Lerp(sound.volume, sound.volume * 1.35f, GameManager.Instance.remainingTime / GameManager.Instance.totalTime);
+            AudioManager.Instance.Play(breathingClips[index]);
+        }
     }
 
 }

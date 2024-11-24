@@ -71,7 +71,7 @@ public class GameScript : MonoBehaviour
         Time.timeScale = 1;
 
         gameHud.enabled = true;
-        monitorMenu.enabled = false;
+        //monitorMenu.enabled = false;
 
         playerCamera.gameObject.SetActive(true);
         monitorCamera.gameObject.SetActive(false);
