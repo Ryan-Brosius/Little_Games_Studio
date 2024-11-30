@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
         doorSlamSource.Play();
         yield return new WaitForSeconds(1f);
         creatureAnimator.SetTrigger("MetalDoor");
-        yield return new WaitForSeconds(8.2f);
+        yield return new WaitForSeconds(8.6f);
         newLeftDoor.GetComponent<Interactable>().enabled = true;
         newRightDoor.GetComponent<Interactable>().enabled = true;
         creature.SetActive(false);
@@ -214,10 +214,10 @@ public class GameManager : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-        AudioManager.Instance.Play("GameOverSound");
         player.transform.rotation = endRotation;
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(3.5f);
+        AudioManager.Instance.Play("GameOverSound");
         deathScreen.SetActive(true);
         deathArticle.text = WhyPlayerDied();
     }
