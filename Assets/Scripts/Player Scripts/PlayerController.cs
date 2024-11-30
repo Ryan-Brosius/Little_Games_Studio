@@ -50,6 +50,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minBreathingInterval = 1.5f;
     private float breathingTimer;
 
+    public bool canMove = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,8 +70,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        updateCameraMovement();
-        updateMovement();
+        if (canMove)
+        {
+            updateCameraMovement();
+            updateMovement();
+        }
         UpdateFootsteps();
         UpdateBreathing();
     }
@@ -192,7 +197,7 @@ public class PlayerController : MonoBehaviour
         if (breathingClips.Length > 0)
         {
             int index = Random.Range(0, breathingClips.Length);
-            AudioManager.Instance.getSound(breathingClips[index]).source.pitch = 1.0f + Random.Range(-0.1f, 0.1f);
+            AudioManager.Instance.getSound(breathingClips[index]).source.pitch = 1.0f + Random.Range(0.0f, 0.1f);
 
             AudioManager.Sound sound = AudioManager.Instance.getSound(breathingClips[index]);
             sound.source.volume = Mathf.Lerp(sound.volume, sound.volume * 1.35f, GameManager.Instance.remainingTime / GameManager.Instance.totalTime);

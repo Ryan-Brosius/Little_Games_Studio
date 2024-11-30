@@ -40,19 +40,19 @@ public class StartMenu : MonoBehaviour
         message1.SetActive(true);
         AudioManager.Instance.Play("ComputerMessage");
 
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2f);
         message2.SetActive(true);
         AudioManager.Instance.Play("ComputerMessage");
 
-        yield return new WaitForSecondsRealtime(4f);
+        yield return new WaitForSecondsRealtime(2f);
         message3.SetActive(true);
         AudioManager.Instance.Play("ComputerMessage");
 
-        yield return new WaitForSecondsRealtime(3f);
+        yield return new WaitForSecondsRealtime(2.5f);
         message4.SetActive(true);
         AudioManager.Instance.Play("ComputerMessage");
 
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(2f);
         gameScript.startGame();
     }
 }

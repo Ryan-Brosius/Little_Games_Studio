@@ -32,7 +32,7 @@ public class Timer : MonoBehaviour
             remainingTime = 0;
             timerText.color = Color.red;
             timerText.text = "00:00:00";
-            GameOver();
+            //GameOver();
 
         }
         
