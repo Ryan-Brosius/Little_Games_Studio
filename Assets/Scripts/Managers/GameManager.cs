@@ -130,6 +130,11 @@ public class GameManager : MonoBehaviour
 
         //Message 7 -> Lock Front Door
         if (message == 7) lockedFrontDoor = true;
+
+        if (PlayerWin())
+        {
+            Debug.Log("Player Wins!!");
+        }
     }
 
     public bool getMessage(int message)
@@ -172,6 +177,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SlamBasementDoor()
     {
+        generatorRepaired = true;
         creature.SetActive(true);
         yield return new WaitForSeconds(1f);
         oldDoor.SetActive(false);
@@ -218,6 +224,8 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3.5f);
         AudioManager.Instance.Play("GameOverSound");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         deathScreen.SetActive(true);
         deathArticle.text = WhyPlayerDied();
     }
@@ -280,6 +288,16 @@ public class GameManager : MonoBehaviour
         }
 
         return "This is an error message and you should not be seeing this lol";
+    }
+
+    private bool PlayerWin()
+    {
+        return securityAlarmActivated &&
+               generatorRepaired &&
+               lockedFrontDoor &&
+               windowsRepaired >= 7 &&
+               ventsRepaired >= 3 &&
+               fridgeBlockingDoor;
     }
 
     public IEnumerator FadeToDark(float fadeDuration)
