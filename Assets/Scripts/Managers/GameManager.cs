@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
         
         if (!sentOutFirstMessage && (totalTime - remainingTime) > 1f)
         {
-            MessageSystem.Instance.queueMessage("I think I should arm the security system...\npress [E] to interact with the sticky note on the computer screen");
+            MessageSystem.Instance.queueMessage("I think I should arm the security system...");
             sentOutFirstMessage = true;
         }
 
