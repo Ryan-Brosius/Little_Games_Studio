@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private Transform playerDeadTransform;
     [SerializeField] private Image fadeImage;
+    [SerializeField] private GameObject fadeToDarkHud;
+    [SerializeField] private GameObject playerHud;
+    [SerializeField] private GameObject winHud;
 
     [Header("Canvas Stuff")]
     [SerializeField] private GameObject deathScreen;
@@ -133,7 +136,7 @@ public class GameManager : MonoBehaviour
 
         if (PlayerWin())
         {
-            Debug.Log("Player Wins!!");
+            StartCoroutine(SetPlayerWin());
         }
     }
 
@@ -198,6 +201,8 @@ public class GameManager : MonoBehaviour
         creature.SetActive(true);
         StartCoroutine(FadeToDark(1.0f));
         yield return new WaitForSeconds(1.2f);
+        playerHud.SetActive(false);
+        player.GetComponent<PlayerController>().canBreath = false;
         player.GetComponent<PlayerController>().canMove = false;
         player.transform.position = playerDeadTransform.position;
         player.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
@@ -228,6 +233,22 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         deathScreen.SetActive(true);
         deathArticle.text = WhyPlayerDied();
+    }
+
+    IEnumerator SetPlayerWin()
+    {
+        StartCoroutine(FadeToDark(1.0f));
+        yield return new WaitForSeconds(1.2f);
+        playerHud.SetActive(false);
+        timer.remainingTime = 9999;
+        AudioManager.Instance.Play("GameWinSound");
+        player.GetComponent<PlayerController>().canBreath = false;
+        player.GetComponent<PlayerController>().canMove = false;
+        StartCoroutine(FadeToClear(1f));
+        winHud.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private string WhyPlayerDied()
@@ -302,6 +323,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator FadeToDark(float fadeDuration)
     {
+        fadeToDarkHud.SetActive(true);
         float elapsedTime = 0.0f;
         Color color = fadeImage.color;
 
@@ -332,5 +354,6 @@ public class GameManager : MonoBehaviour
 
         color.a = 0.0f;
         fadeImage.color = color;
+        fadeToDarkHud.SetActive(false);
     }
 }

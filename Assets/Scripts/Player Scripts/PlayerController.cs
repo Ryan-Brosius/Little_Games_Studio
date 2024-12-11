@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxBreathingInterval = 6f;
     [SerializeField] private float minBreathingInterval = 1.5f;
     private float breathingTimer;
+    public bool canBreath = true;
 
     public bool canMove = true;
 
@@ -185,7 +186,7 @@ public class PlayerController : MonoBehaviour
     public void UpdateBreathing()
     {
         breathingTimer -= isRunning ? Time.deltaTime * 1.8f : Time.deltaTime;
-        if (breathingTimer <= 0f)
+        if (breathingTimer <= 0f && canBreath)
         {
             PlayBreathingSound();
             breathingTimer = Mathf.Lerp(minBreathingInterval, maxBreathingInterval, GameManager.Instance.remainingTime / GameManager.Instance.totalTime);
